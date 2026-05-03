@@ -30,14 +30,12 @@ func (m mockRequest) GetBody() any {
 }
 
 func TestValidator(t *testing.T) {
-	// Инициализируем через твой Config.Build()
 	cfg := &Config{}
 	res, err := cfg.Build()
 	require.NoError(t, err)
 	v := res.(*Validator)
 
 	t.Run("Validate Legacy Interface", func(t *testing.T) {
-		// Тестируем через приватный метод (в Go тесты в том же пакете имеют доступ)
 		err := v.validate(&mockValidatable{err: errors.New("fail")})
 		assert.EqualError(t, err, "fail")
 	})
